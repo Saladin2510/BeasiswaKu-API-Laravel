@@ -3,33 +3,57 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Beasiswa;
 use Illuminate\Http\Request;
 
 class BeasiswaController extends Controller
 {
-    // 1. GET /scholarships
+
     public function index()
     {
-        // Mengembalikan data JSON persis seperti di soal
+        // Mengambil semua data beasiswa dari database
+        $beasiswa = Beasiswa::all();
+
+        // Mengembalikan data dalam bentuk format JSON
         return response()->json([
-            "status" => true,
-            "message" => "Daftar Beasiswa Kuliah 2026",
-            "data" => [
-                [
-                    "id" => 1,
-                    "nama_program" => "Beasiswa Unggulan Full Sarjana",
-                    "kuota" => 50,
-                    "syarat_min_nilai" => 85
-                ],
-                [
-                    "id" => 2,
-                    "nama_program" => "Beasiswa Vokasi PPLG (Khusus SMK)",
-                    "kuota" => 30,
-                    "syarat_min_nilai" => 80
-                ]
-            ]
+            'status' => 'success',
+            'data' => $beasiswa
         ], 200);
     }
+
+
+
+
+
+
+
+
+
+
+    
+    // 1. GET /scholarships
+    // public function index()
+    // {
+    //     // Mengembalikan data JSON persis seperti di soal
+    //     return response()->json([
+    //         "status" => true,
+    //         "message" => "Daftar Beasiswa Kuliah 2026",
+    //         "data" => [
+    //             [
+    //                 "id" => 1,
+    //                 "nama_program" => "Beasiswa Unggulan Full Sarjana",
+    //                 "kuota" => 50,
+    //                 "syarat_min_nilai" => 85
+    //             ],
+    //             [
+    //                 "id" => 2,
+    //                 "nama_program" => "Beasiswa Vokasi PPLG (Khusus SMK)",
+    //                 "kuota" => 30,
+    //                 "syarat_min_nilai" => 80
+    //             ]
+    //         ]
+    //     ], 200);
+    // }
 
     // 2. POST /apply
     public function store(Request $request)
