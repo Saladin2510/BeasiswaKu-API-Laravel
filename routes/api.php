@@ -8,9 +8,11 @@ use App\Http\Controllers\Api\BeasiswaController;
 // GET
 Route::get('/beasiswa', [BeasiswaController::class, 'index']);
 
-
 // POST
 Route::post('/beasiswa', [BeasiswaController::class, 'store']);
+
+// DELETE
+Route::delete('/beasiswa/{id}', [BeasiswaController::class, 'destroy']);
 
 
 // GET: Menampilkan daftar beasiswa

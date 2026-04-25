@@ -21,8 +21,6 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-    // ... fungsi index() yang kemarin ada di sini ...
-
     public function store(Request $request)
     {
         // Menyimpan data yang dikirim Android ke tabel MySQL
@@ -35,53 +33,34 @@ class BeasiswaController extends Controller
         ], 201); // 201 artinya "Created"
     }
 
+    public function destroy($id)
+    {
+        // Cari data beasiswa berdasarkan ID
+        $beasiswa = Beasiswa::find($id);
+
+        // Jika datanya tidak ada
+        if (!$beasiswa) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data beasiswa tidak ditemukan!'
+            ], 404);
+        }
+
+        // Jika ada, hapus datanya
+        $beasiswa->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Beasiswa berhasil dihapus dari sistem!',
+            'data' => null
+        ], 200);
+    }
 
 
 
 
 
 
-
-    
-    // 1. GET /scholarships
-    // public function index()
-    // {
-    //     // Mengembalikan data JSON persis seperti di soal
-    //     return response()->json([
-    //         "status" => true,
-    //         "message" => "Daftar Beasiswa Kuliah 2026",
-    //         "data" => [
-    //             [
-    //                 "id" => 1,
-    //                 "nama_program" => "Beasiswa Unggulan Full Sarjana",
-    //                 "kuota" => 50,
-    //                 "syarat_min_nilai" => 85
-    //             ],
-    //             [
-    //                 "id" => 2,
-    //                 "nama_program" => "Beasiswa Vokasi PPLG (Khusus SMK)",
-    //                 "kuota" => 30,
-    //                 "syarat_min_nilai" => 80
-    //             ]
-    //         ]
-    //     ], 200);
-    // }
-
-    // 2. POST /apply
-    // public function store(Request $request)
-    // {
-    //     // Menangkap data 'nama_lengkap' dari Request. 
-    //     // Jika kosong, kita kasih nilai default "Bahlil" agar sesuai contohmu.
-    //     $namaLengkap = $request->input('nama_lengkap', 'Bahlil');
-
-    //     // Mengembalikan Response JSON
-    //     return response()->json([
-    //         "status" => true,
-    //         // Menyisipkan variabel nama ke dalam teks pesan
-    //         "message" => "Data pendaftaran {$namaLengkap} berhasil diterima. Tunggu proses verifikasi.",
-    //         "no_pendaftaran" => "SCH-2026-SMK-014"
-    //     ], 201);
-    // }
 
     // 3. PUT /announcement/{nisn}
     public function update(Request $request, $nisn)
@@ -96,24 +75,6 @@ class BeasiswaController extends Controller
             "data" => [
                 "id_pendaftaran" => 101,
                 "nilai_terbaru" => $nilaiTerbaru
-            ]
-        ], 200);
-    }
-
-    // 4. DELETE /apply
-    public function destroy(Request $request)
-    {
-        // Menangkap NISN dari Request. 
-        // Jika kosong, pakai data dummy agar sesuai soal.
-        $nisn = $request->input('nisn', '0061234567');
-
-        return response()->json([
-            "status" => true,
-            "message" => "Pendaftaran atas nama Kamila Mahda (NISN: {$nisn}) telah berhasil dibatalkan.",
-            "data" => [
-                "id_pendaftaran" => 101,
-                // Opsional: pakai date() agar jam pembatalannya selalu waktu saat ini
-                "waktu_pembatalan" => "2026-04-08 14:00:00"
             ]
         ], 200);
     }
