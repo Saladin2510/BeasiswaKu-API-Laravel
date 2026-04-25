@@ -9,7 +9,8 @@ use App\Http\Controllers\Api\BeasiswaController;
 Route::get('/beasiswa', [BeasiswaController::class, 'index']);
 
 
-
+// POST
+Route::post('/beasiswa', [BeasiswaController::class, 'store']);
 
 
 // GET: Menampilkan daftar beasiswa

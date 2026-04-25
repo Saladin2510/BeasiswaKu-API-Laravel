@@ -21,7 +21,19 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
+    // ... fungsi index() yang kemarin ada di sini ...
 
+    public function store(Request $request)
+    {
+        // Menyimpan data yang dikirim Android ke tabel MySQL
+        $beasiswa = Beasiswa::create($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Mantap! Beasiswa berhasil ditambahkan!',
+            'data' => $beasiswa
+        ], 201); // 201 artinya "Created"
+    }
 
 
 
@@ -56,20 +68,20 @@ class BeasiswaController extends Controller
     // }
 
     // 2. POST /apply
-    public function store(Request $request)
-    {
-        // Menangkap data 'nama_lengkap' dari Request. 
-        // Jika kosong, kita kasih nilai default "Bahlil" agar sesuai contohmu.
-        $namaLengkap = $request->input('nama_lengkap', 'Bahlil');
+    // public function store(Request $request)
+    // {
+    //     // Menangkap data 'nama_lengkap' dari Request. 
+    //     // Jika kosong, kita kasih nilai default "Bahlil" agar sesuai contohmu.
+    //     $namaLengkap = $request->input('nama_lengkap', 'Bahlil');
 
-        // Mengembalikan Response JSON
-        return response()->json([
-            "status" => true,
-            // Menyisipkan variabel nama ke dalam teks pesan
-            "message" => "Data pendaftaran {$namaLengkap} berhasil diterima. Tunggu proses verifikasi.",
-            "no_pendaftaran" => "SCH-2026-SMK-014"
-        ], 201);
-    }
+    //     // Mengembalikan Response JSON
+    //     return response()->json([
+    //         "status" => true,
+    //         // Menyisipkan variabel nama ke dalam teks pesan
+    //         "message" => "Data pendaftaran {$namaLengkap} berhasil diterima. Tunggu proses verifikasi.",
+    //         "no_pendaftaran" => "SCH-2026-SMK-014"
+    //     ], 201);
+    // }
 
     // 3. PUT /announcement/{nisn}
     public function update(Request $request, $nisn)
