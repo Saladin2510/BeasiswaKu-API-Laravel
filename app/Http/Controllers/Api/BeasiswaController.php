@@ -56,26 +56,43 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-
-
-
-
-
-
-    // 3. PUT /announcement/{nisn}
-    public function update(Request $request, $nisn)
+    public function update(Request $request, $id)
     {
-        // Menangkap nilai rapor yang direvisi dari Request.
-        // Jika tidak ada, nilai defaultnya 92.0
-        $nilaiTerbaru = $request->input('rata_rapor', 92.0);
+        // 1. Cari data beasiswa yang mau diedit
+        $beasiswa = Beasiswa::find($id);
+
+        if (!$beasiswa) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data beasiswa tidak ditemukan!'
+            ], 404);
+        }
+
+        // 2. Update datanya dengan data baru dari Android
+        $beasiswa->update($request->all());
 
         return response()->json([
-            "status" => true,
-            "message" => "Data pendaftaran ID 101 berhasil diperbarui",
-            "data" => [
-                "id_pendaftaran" => 101,
-                "nilai_terbaru" => $nilaiTerbaru
-            ]
+            'status' => 'success',
+            'message' => 'Beasiswa berhasil diperbarui!',
+            'data' => $beasiswa
+        ], 200);
+    }
+
+    public function show($id)
+    {
+        // Mencari beasiswa berdasarkan ID
+        $beasiswa = Beasiswa::find($id);
+
+        if (!$beasiswa) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data beasiswa tidak ditemukan!'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $beasiswa
         ], 200);
     }
 }
