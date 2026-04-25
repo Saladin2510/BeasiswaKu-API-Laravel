@@ -5,6 +5,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BeasiswaController;
 use App\Http\Controllers\Api\ArtikelController;
 use App\Http\Controllers\Api\TestimonialController;
+use App\Http\Controllers\Api\AuthController;
+
+// ==========================================
+// RUTE AUTHENTICATION (LOGIN & REGISTER)
+// ==========================================
+
+// Pintu Publik (Tanpa Token)
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Pintu VIP (Wajib bawa Token Sanctum)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+    
+    // TAMBAHKAN BARIS INI:
+    Route::post('/profile/update', [AuthController::class, 'updateProfile']);
+});
 
 // Beasiswa List
 // GET

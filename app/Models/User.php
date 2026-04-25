@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,10 +19,13 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    use HasApiTokens, HasFactory, Notifiable; // PASTIKAN HasApiTokens ADA DI SINI
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'avatarResId', // Tambahkan ini agar kita bisa menyimpan avatar Pixel Art nanti
     ];
 
     /**
