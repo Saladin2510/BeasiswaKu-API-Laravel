@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BeasiswaController;
 use App\Http\Controllers\Api\ArtikelController;
+use App\Http\Controllers\Api\TestimonialController;
 
 // Beasiswa List
 // GET
@@ -18,3 +19,6 @@ Route::put('/beasiswa/{id}', [BeasiswaController::class, 'update']);
 
 // Artikel
 Route::apiResource('artikel', ArtikelController::class);
+
+// Testimonial
+Route::apiResource('testimonial', TestimonialController::class);
