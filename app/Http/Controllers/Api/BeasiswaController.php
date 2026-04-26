@@ -9,15 +9,34 @@ use Illuminate\Http\Request;
 class BeasiswaController extends Controller
 {
 
-    public function index()
+    // Fungsi untuk mengambil data beasiswa (dengan fitur Search & Filter)
+    public function index(Request $request)
     {
-        // Mengambil semua data beasiswa dari database
-        $beasiswa = Beasiswa::all();
+        // 1. Siapkan "keranjang pencarian"
+        $query = Beasiswa::query();
 
-        // Mengembalikan data dalam bentuk format JSON
+        // 2. Filter Kategori: Jika Android mengirim kategori dan isinya bukan "Semua"
+        if ($request->has('category') && $request->category !== 'Semua') {
+            $query->where('category', $request->category);
+        }
+
+        // 3. Pencarian Teks: Jika Android mengirim kata kunci pencarian
+        if ($request->has('search') && $request->search !== '') {
+            $search = $request->search;
+            // Gunakan kurung (function) agar SQL membacanya sebagai: 
+            // Kategori X AND (title LIKE Y OR description LIKE Y)
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // 4. Eksekusi query: Ambil hasilnya dan urutkan dari yang terbaru
+        $beasiswas = $query->orderBy('created_at', 'desc')->get();
+
         return response()->json([
             'status' => 'success',
-            'data' => $beasiswa
+            'data' => $beasiswas
         ], 200);
     }
 
