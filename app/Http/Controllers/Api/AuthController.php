@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -82,6 +84,52 @@ class AuthController extends Controller
         ], 200);
     }
 
+    // FUNGSI LOGIN / REGISTER VIA GOOGLE
+    public function google(Request $request)
+    {
+        $request->validate([
+            'id_token' => 'required|string'
+        ]);
+
+        // 1. Verifikasi ID Token ke server asli Google
+        $response = Http::get('https://oauth2.googleapis.com/tokeninfo?id_token=' . $request->id_token);
+
+        if ($response->failed()) {
+            return response()->json(['status' => 'error', 'message' => 'Token Google tidak valid!'], 401);
+        }
+
+        $payload = $response->json();
+
+        // 2. Cari user berdasarkan email
+        $user = User::where('email', $payload['email'])->first();
+
+        if (!$user) {
+            // Jika akun belum ada, buat baru dan masukkan foto Google-nya!
+            $user = User::create([
+                'name' => $payload['name'],
+                'email' => $payload['email'],
+                'password' => Hash::make(Str::random(24)),
+                'avatar_url' => $payload['picture'] ?? null // Tangkap fotonya!
+            ]);
+        } else {
+            // Jika akun sudah ada, perbarui fotonya (siapa tau dia ganti profil)
+            if (isset($payload['picture'])) {
+                $user->avatar_url = $payload['picture'];
+                $user->save();
+            }
+        }
+
+        // 3. Terbitkan Token Sanctum
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Login Google berhasil!',
+            'data' => $user,
+            'token' => $token
+        ], 200);
+    }
+
     // 4. FUNGSI GET PROFIL USER SAAT INI
     public function me(Request $request)
     {
@@ -112,5 +160,44 @@ class AuthController extends Controller
             'message' => 'Profil berhasil diperbarui!',
             'data' => $user
         ], 200);
+    }
+
+    // FUNGSI UNGGAH FOTO PROFIL (LOCAL STORAGE)
+    public function uploadAvatar(Request $request)
+    {
+        // 1. Validasi: Pastikan yang dikirim adalah file gambar (maksimal 2MB)
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', 
+        ]);
+
+        $user = $request->user();
+
+        // 2. Jika ada file yang dikirim
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            
+            // Buat nama file unik (Contoh: avatar_1_169000000.jpg)
+            $filename = 'avatar_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            
+            // Simpan file ke folder: storage/app/public/avatars
+            $path = $file->storeAs('avatars', $filename, 'public');
+
+            // 3. Simpan URL lengkapnya ke database (kolom avatar_url)
+            // Gunakan url() agar menghasilkan link lengkap seperti: http://192.168.x.x:8000/storage/avatars/namafile.jpg
+            $fullUrl = url('storage/' . $path);
+            
+            $user->update([
+                'avatar_url' => $fullUrl,
+                'avatarResId' => null // Hapus avatar pixel art jika ada
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Foto profil berhasil diperbarui',
+                'data' => $user
+            ], 200);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Tidak ada file yang diunggah'], 400);
     }
 }

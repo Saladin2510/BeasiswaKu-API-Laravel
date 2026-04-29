@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\AuthController;
 // Pintu Publik (Tanpa Token)
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/google', [AuthController::class, 'google']);
 
 // Pintu VIP (Wajib bawa Token Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
@@ -44,3 +45,5 @@ Route::apiResource('testimonial', TestimonialController::class);
 // Wishlist
 Route::get('/wishlist/{uid}', [\App\Http\Controllers\Api\SavedScholarshipController::class, 'getUserWishlist']);
 Route::post('/wishlist/toggle', [\App\Http\Controllers\Api\SavedScholarshipController::class, 'toggle']);
+
+Route::post('/upload-avatar', [AuthController::class, 'uploadAvatar']);

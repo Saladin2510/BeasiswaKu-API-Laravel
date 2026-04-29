@@ -25,7 +25,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avatarResId', // Tambahkan ini agar kita bisa menyimpan avatar Pixel Art nanti
+        'avatarResId',
+        'avatar_url'
     ];
 
     /**
