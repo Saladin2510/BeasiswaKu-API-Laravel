@@ -161,43 +161,4 @@ class AuthController extends Controller
             'data' => $user
         ], 200);
     }
-
-    // FUNGSI UNGGAH FOTO PROFIL (LOCAL STORAGE)
-    public function uploadAvatar(Request $request)
-    {
-        // 1. Validasi: Pastikan yang dikirim adalah file gambar (maksimal 2MB)
-        $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', 
-        ]);
-
-        $user = $request->user();
-
-        // 2. Jika ada file yang dikirim
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            
-            // Buat nama file unik (Contoh: avatar_1_169000000.jpg)
-            $filename = 'avatar_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-            
-            // Simpan file ke folder: storage/app/public/avatars
-            $path = $file->storeAs('avatars', $filename, 'public');
-
-            // 3. Simpan URL lengkapnya ke database (kolom avatar_url)
-            // Gunakan url() agar menghasilkan link lengkap seperti: http://192.168.x.x:8000/storage/avatars/namafile.jpg
-            $fullUrl = url('storage/' . $path);
-            
-            $user->update([
-                'avatar_url' => $fullUrl,
-                'avatarResId' => null // Hapus avatar pixel art jika ada
-            ]);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Foto profil berhasil diperbarui',
-                'data' => $user
-            ], 200);
-        }
-
-        return response()->json(['status' => 'error', 'message' => 'Tidak ada file yang diunggah'], 400);
-    }
 }
