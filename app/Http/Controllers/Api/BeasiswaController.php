@@ -114,8 +114,6 @@ class BeasiswaController extends Controller
             'data' => $beasiswa
         ], 200);
     }
-<<<<<<< HEAD
-=======
 
         // 7. FUNGSI SEARCH (Tambahan untuk mencari beasiswa berdasarkan nama)
     public function search(Request $request)
@@ -131,5 +129,4 @@ class BeasiswaController extends Controller
             'data' => $beasiswa
         ], 200);
     }
->>>>>>> afd505aed1dbde1615833c2702a1128e49b2a355
 }
