@@ -14,6 +14,10 @@ use App\Http\Controllers\Api\AuthController;
 // Pintu Publik (Tanpa Token)
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+<<<<<<< HEAD   
+=======
+Route::post('/check-email', [AuthController::class, 'checkEmail']);
+>>>>>>> afd505aed1dbde1615833c2702a1128e49b2a355
 Route::post('/auth/google', [AuthController::class, 'google']);
 
 // Pintu VIP (Wajib bawa Token Sanctum)
@@ -28,6 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
 // Beasiswa List
 // GET
 Route::get('/beasiswa', [BeasiswaController::class, 'index']);
+<<<<<<< HEAD
+=======
+Route::get('/beasiswa/search', [BeasiswaController::class, 'search']);
+>>>>>>> afd505aed1dbde1615833c2702a1128e49b2a355
 Route::get('/beasiswa/{id}', [BeasiswaController::class, 'show']);
 // POST
 Route::post('/beasiswa', [BeasiswaController::class, 'store']);

@@ -161,4 +161,23 @@ class AuthController extends Controller
             'data' => $user
         ], 200);
     }
+<<<<<<< HEAD
+=======
+
+    // 6. FUNGSI CEK EMAIL (Tambahan untuk LKPD)
+    public function checkEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $exists = \App\Models\User::where('email', $request->email)->exists();
+
+        return response()->json([
+            'status' => 'success',
+            'exists' => $exists,
+            'message' => $exists ? 'Email sudah terdaftar' : 'Email tersedia'
+        ], 200);
+    }
+>>>>>>> afd505aed1dbde1615833c2702a1128e49b2a355
 }
