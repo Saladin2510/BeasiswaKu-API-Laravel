@@ -17,6 +17,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/check-email', [AuthController::class, 'checkEmail']);
 Route::post('/auth/google', [AuthController::class, 'google']);
 
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
 // Pintu VIP (Wajib bawa Token Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
