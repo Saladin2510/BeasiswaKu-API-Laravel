@@ -12,26 +12,29 @@ class BeasiswaController extends Controller
     // Fungsi untuk mengambil data beasiswa (dengan fitur Search & Filter)
     public function index(Request $request)
     {
-        // 1. Siapkan "keranjang pencarian"
+        // 1. Siapkan query
         $query = Beasiswa::query();
 
-        // 2. Filter Kategori: Jika Android mengirim kategori dan isinya bukan "Semua"
+        // 2. Filter kategori
         if ($request->has('category') && $request->category !== 'Semua') {
             $query->where('category', $request->category);
         }
 
-        // 3. Pencarian Teks: Jika Android mengirim kata kunci pencarian
+        // 3. Search
         if ($request->has('search') && $request->search !== '') {
+
             $search = $request->search;
 
             $query->where(function($q) use ($search) {
+
                 $q->where('title', 'like', "%{$search}%")
                   ->orWhere('description', 'like', "%{$search}%");
+
             });
         }
 
-        // 4. Eksekusi query
-        $beasiswas = $query->orderBy('created_at', 'desc')->get();
+        // 4. Ambil data
+        $beasiswas = $query->orderBy('id', 'desc')->get();
 
         return response()->json([
             'status' => 'success',
@@ -57,6 +60,7 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::find($id);
 
         if (!$beasiswa) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Data beasiswa tidak ditemukan!'
@@ -78,6 +82,7 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::find($id);
 
         if (!$beasiswa) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Data beasiswa tidak ditemukan!'
@@ -99,6 +104,7 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::find($id);
 
         if (!$beasiswa) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Data beasiswa tidak ditemukan!'
@@ -115,10 +121,10 @@ class BeasiswaController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->query('query');
-        
+
         $beasiswa = Beasiswa::where('title', 'like', "%$keyword%")
-                    ->orWhere('description', 'like', "%$keyword%")
-                    ->get();
+                        ->orWhere('description', 'like', "%$keyword%")
+                        ->get();
 
         return response()->json([
             'status' => 'success',
@@ -126,17 +132,18 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-   // TRENDING BEASISWA (BARU)
-public function trending()
-{
-    // Mengambil 5 beasiswa terbaru
-    $beasiswa = Beasiswa::orderBy('id', 'desc')
-                    ->take(5)
-                    ->get();
+    // TRENDING BEASISWA
+    public function trending()
+    {
+        // Ambil 5 beasiswa terbaru
+        $beasiswa = Beasiswa::orderBy('id', 'desc')
+                        ->take(5)
+                        ->get();
 
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Data beasiswa trending berhasil diambil',
-        'data' => $beasiswa
-    ], 200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data beasiswa trending berhasil diambil',
+            'data' => $beasiswa
+        ], 200);
+    }
 }
