@@ -130,7 +130,7 @@ class BeasiswaController extends Controller
     public function trending()
     {
         // Mengambil 5 beasiswa terbaru
-        $beasiswa = Beasiswa::orderBy('created_at', 'desc')
+        $beasiswa = Beasiswa->orderBy('id', 'desc')
                         ->take(5)
                         ->get();
 
