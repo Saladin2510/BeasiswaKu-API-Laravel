@@ -126,18 +126,17 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-    // TRENDING BEASISWA (BARU)
-    public function trending()
-    {
-        // Mengambil 5 beasiswa terbaru
-        $beasiswa = Beasiswa->orderBy('id', 'desc')
-                        ->take(5)
-                        ->get();
+   // TRENDING BEASISWA (BARU)
+public function trending()
+{
+    // Mengambil 5 beasiswa terbaru
+    $beasiswa = Beasiswa::orderBy('id', 'desc')
+                    ->take(5)
+                    ->get();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data beasiswa trending berhasil diambil',
-            'data' => $beasiswa
-        ], 200);
-    }
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Data beasiswa trending berhasil diambil',
+        'data' => $beasiswa
+    ], 200);
 }
