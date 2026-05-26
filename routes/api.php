@@ -37,7 +37,7 @@ Route::get('/beasiswa', [BeasiswaController::class, 'index']);
 Route::get('/beasiswa/search', [BeasiswaController::class, 'search']);
 
 // TRANDING BEASISWA
-Route::get('/beasiswa/trending', [BeasiswaController::class, 'trending']);
+Route::get('/beasiswa/popular', [BeasiswaController::class, 'popular']);
 
 Route::get('/beasiswa/{id}', [BeasiswaController::class, 'show']);
 

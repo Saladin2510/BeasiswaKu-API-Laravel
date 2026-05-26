@@ -9,18 +9,20 @@ use Illuminate\Http\Request;
 class BeasiswaController extends Controller
 {
 
-    // Fungsi untuk mengambil data beasiswa (dengan fitur Search & Filter)
+    // ==========================================
+    // GET ALL BEASISWA + SEARCH + FILTER
+    // ==========================================
     public function index(Request $request)
     {
-        // 1. Siapkan query
         $query = Beasiswa::query();
 
-        // 2. Filter kategori
+        // FILTER CATEGORY
         if ($request->has('category') && $request->category !== 'Semua') {
+
             $query->where('category', $request->category);
         }
 
-        // 3. Search
+        // SEARCH
         if ($request->has('search') && $request->search !== '') {
 
             $search = $request->search;
@@ -33,7 +35,7 @@ class BeasiswaController extends Controller
             });
         }
 
-        // 4. Ambil data
+        // AMBIL DATA
         $beasiswas = $query->orderBy('id', 'desc')->get();
 
         return response()->json([
@@ -42,7 +44,9 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-    // CREATE DATA
+    // ==========================================
+    // CREATE BEASISWA
+    // ==========================================
     public function store(Request $request)
     {
         $beasiswa = Beasiswa::create($request->all());
@@ -54,7 +58,9 @@ class BeasiswaController extends Controller
         ], 201);
     }
 
-    // DELETE DATA
+    // ==========================================
+    // DELETE BEASISWA
+    // ==========================================
     public function destroy($id)
     {
         $beasiswa = Beasiswa::find($id);
@@ -76,7 +82,9 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-    // UPDATE DATA
+    // ==========================================
+    // UPDATE BEASISWA
+    // ==========================================
     public function update(Request $request, $id)
     {
         $beasiswa = Beasiswa::find($id);
@@ -98,7 +106,9 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-    // DETAIL DATA
+    // ==========================================
+    // DETAIL BEASISWA
+    // ==========================================
     public function show($id)
     {
         $beasiswa = Beasiswa::find($id);
@@ -117,7 +127,9 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
+    // ==========================================
     // SEARCH BEASISWA
+    // ==========================================
     public function search(Request $request)
     {
         $keyword = $request->query('query');
@@ -132,17 +144,19 @@ class BeasiswaController extends Controller
         ], 200);
     }
 
-    // TRENDING BEASISWA
-    public function trending()
+    // ==========================================
+    // BEASISWA POPULER BERDASARKAN WISHLIST
+    // ==========================================
+    public function popular()
     {
-        // Ambil 5 beasiswa terbaru
-        $beasiswa = Beasiswa::orderBy('id', 'desc')
+        $beasiswa = Beasiswa::withCount('wishlists')
+                        ->orderBy('wishlists_count', 'desc')
                         ->take(5)
                         ->get();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Data beasiswa trending berhasil diambil',
+            'message' => 'Data beasiswa populer berhasil diambil',
             'data' => $beasiswa
         ], 200);
     }
