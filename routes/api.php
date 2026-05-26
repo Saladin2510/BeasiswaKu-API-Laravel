@@ -17,36 +17,55 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/check-email', [AuthController::class, 'checkEmail']);
 Route::post('/auth/google', [AuthController::class, 'google']);
 
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-Route::post('/reset-password', [AuthController::class, 'resetPassword']);
-
 // Pintu VIP (Wajib bawa Token Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
-    
-    // TAMBAHKAN BARIS INI:
+
+    // Update profile
     Route::post('/profile/update', [AuthController::class, 'updateProfile']);
 });
 
-// Beasiswa List
+// ==========================================
+// BEASISWA
+// ==========================================
+
 // GET
 Route::get('/beasiswa', [BeasiswaController::class, 'index']);
+
 Route::get('/beasiswa/search', [BeasiswaController::class, 'search']);
+
+// TRANDING BEASISWA
+Route::get('/beasiswa/trending', [BeasiswaController::class, 'trending']);
+
 Route::get('/beasiswa/{id}', [BeasiswaController::class, 'show']);
+
 // POST
 Route::post('/beasiswa', [BeasiswaController::class, 'store']);
+
 // DELETE
 Route::delete('/beasiswa/{id}', [BeasiswaController::class, 'destroy']);
+
 // PUT
 Route::put('/beasiswa/{id}', [BeasiswaController::class, 'update']);
 
-// Artikel
+
+// ==========================================
+// ARTIKEL
+// ==========================================
 Route::apiResource('artikel', ArtikelController::class);
 
-// Testimonial
+
+// ==========================================
+// TESTIMONIAL
+// ==========================================
 Route::apiResource('testimonial', TestimonialController::class);
 
-// Wishlist
+
+// ==========================================
+// WISHLIST
+// ==========================================
 Route::get('/wishlist/{uid}', [\App\Http\Controllers\Api\SavedScholarshipController::class, 'getUserWishlist']);
+
 Route::post('/wishlist/toggle', [\App\Http\Controllers\Api\SavedScholarshipController::class, 'toggle']);
