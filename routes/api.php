@@ -16,6 +16,16 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/check-email', [AuthController::class, 'checkEmail']);
 Route::post('/auth/google', [AuthController::class, 'google']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+Route::get('/reset-password/{token}', function (\Illuminate\Http\Request $request, $token) {
+    // Kita mengirimkan token dan email dari link (URL) ke dalam halaman web
+    return view('reset-password', [
+        'token' => $token, 
+        'email' => $request->email
+    ]);
+})->name('password.reset');
 
 // Pintu VIP (Wajib bawa Token Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
