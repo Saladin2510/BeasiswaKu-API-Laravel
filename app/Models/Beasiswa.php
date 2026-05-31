@@ -11,4 +11,10 @@ class Beasiswa extends Model
 
     // Tambahkan baris ini agar Laravel mengizinkan kolom ini diisi dari Android
     protected $fillable = ['title', 'category', 'description', 'date', 'imageUrl', 'linkUrl'];
+
+    public function wishlists()
+    {
+        // Memberi tahu Laravel untuk menggunakan 'scholarship_id' sebagai kunci relasinya
+        return $this->hasMany(SavedScholarship::class, 'scholarship_id');
+    }
 }
