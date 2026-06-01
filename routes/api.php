@@ -35,6 +35,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Update profile
     Route::post('/profile/update', [AuthController::class, 'updateProfile']);
+
+    // ==========================================
+    // NOTIFIKASI FCM
+    // ==========================================
+    Route::post('/fcm-token', [\App\Http\Controllers\Api\NotificationController::class, 'saveToken']);
+    Route::post('/notifications/send', [\App\Http\Controllers\Api\NotificationController::class, 'sendBroadcast']);
 });
 
 // ==========================================

@@ -26,7 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatarResId',
-        'avatar_url'
+        'avatar_url',
+        'fcm_token'
     ];
 
     /**
