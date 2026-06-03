@@ -1,59 +1,59 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BeasiswaKu
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Platform informasi beasiswa terintegrasi untuk pelajar dan mahasiswa.**
 
-## About Laravel
+## 📖 Deskripsi Aplikasi
+BeasiswaKu adalah platform informasi beasiswa akurat yang menyediakan daftar program dalam dan luar negeri, panduan pendaftaran, hingga tips seleksi. Kami hadir untuk membantu pelajar dan mahasiswa memaksimalkan peluang pendidikan melalui akses informasi yang jelas dan terintegrasi.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 👥 Nama Anggota & Pembagian Tugas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| No | Nama Lengkap | No. Absen | Role Anggota | Pembagian Tugas |
+|:---:|---|:---:|---|---|
+| 1 | **Kamila Mahda Fiqiyah** | 14 | UI/UX | Desainer UI/UX Figma, Poster aplikasi, Endpoint search, dan filter query. |
+| 2 | **Krisna Rizky Saputra** | 17 | Database | Database, menambahkan data-data beasiswa, Endpoint filter beasiswa yang sedang populer. |
+| 3 | **Mischa Riyumi Wirya** | 19 | UI/UX | Desainer UI/UX Figma, Poster aplikasi, Endpoint lupa password dan reset password. |
+| 4 | **Muhammad Erlano Fadel Hidayat** | 22 | Database | Database, menambahkan data-data artikel, Endpoint list artikel / Tips & Trik. |
+| 5 | **Saladin Octiano Bonanza** | 32 | API & Android Dev | API dan Android dev, menghubungkan API consume Laravel dengan Android (Jetpack Compose), Endpoint Auth Sanctum (User/Admin), list beasiswa, testimoni, beasiswa tersimpan, dan notifikasi. |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama Aplikasi
+* **Autentikasi Aman:** Sistem Login dan Register yang dienkripsi menggunakan Laravel Sanctum.
+* **Pencarian & Filter:** Pengguna dapat mencari beasiswa impian dan memfilternya berdasarkan kategori (Pemerintah, Swasta, Kampus).
+* **Trending & Tips:** Menampilkan daftar beasiswa yang sedang populer dan korsel artikel panduan/tips seleksi.
+* **Wishlist (Simpan Beasiswa):** Pengguna dapat menyimpan beasiswa favorit ke dalam daftar tersimpan.
+* **Manajemen Admin:** Fitur khusus admin (CRUD) untuk mengedit dan menghapus data beasiswa langsung dari dalam aplikasi mobile.
+* **Push Notification:** Sistem notifikasi yang terintegrasi dengan Firebase Cloud Messaging (FCM).
 
-## Learning Laravel
+## 🛠️ Tech Stack & Arsitektur
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**MOBILE CLIENT (Android) :**
+* **Bahasa Pemrograman:** Kotlin (v1.9.22)
+* **UI Toolkit:** Jetpack Compose (BOM v2024.02.00)
+* **Networking / API Client:** Retrofit (v2.9.0) & OkHttp (v4.11.0)
+* **Image Loading:** Coil (v2.6.0)
+* **Asynchronous Programming:** Kotlin Coroutines & Flow
+* **Notifikasi:** Firebase SDK & Cloud Messaging (FCM)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**BACKEND API :**
+* **Framework:** Laravel (v10.x)
+* **Bahasa Pemrograman:** PHP (v8.2.x)
+* **Database:** MySQL (v8.0.x)
+* **Autentikasi:** Laravel Sanctum
+* **Arsitektur:** RESTful API
 
-## Laravel Sponsors
+## 📦 Link Repository & Hasil Build APK
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Silakan akses *source code* murni dan hasil kompilasi aplikasi siap install melalui tautan resmi di bawah ini:
 
-### Premium Partners
+* **Link Repository Backend (API Laravel):**  
+  `https://github.com/Saladin2510/BeasiswaKu-API-Laravel` ([*https://github.com/Saladin2510/BeasiswaKu-API-Laravel*](https://github.com/Saladin2510/BeasiswaKu-API-Laravel))
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* **Link Repository Android App (Kotlin):**  
+  `https://github.com/Saladin2510/BeasiswaKu-Jetpack` ([*https://github.com/Saladin2510/BeasiswaKu-Jetpack*](https://github.com/Saladin2510/BeasiswaKu-Jetpack))
 
-## Contributing
+* **Link Download APK Aplikasi (Siap Pakai):**  
+  `https://drive.google.com/file/d/1ST3XwYMqWae1XdXhAyVBWpzGd2EmI4aj/view?usp=drive_link` ([*https://drive.google.com/file/d/1ST3XwYMqWae1XdXhAyVBWpzGd2EmI4aj/view?usp=drive_link*](https://drive.google.com/file/d/1ST3XwYMqWae1XdXhAyVBWpzGd2EmI4aj/view?usp=drive_link))
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> **📝 CATATAN PENTING MENGENAI HASIL BUILD APK:**  
+> Proyek ini saat ini masih menggunakan arsitektur *Client-Server* berbasis jaringan lokal (*localhost* / *tethering hotspot*). Bagian *Backend API* (Laravel) dan *Database* (MySQL) masih berjalan di perangkat komputer pengembang (Local Environment), belum di-*deploy* ke server publik (*Hosting/VPS*). 
+> 
+> Oleh karena itu, file `.apk` yang dilampirkan adalah versi *Debug* di mana URL API-nya diarahkan secara spesifik ke IP lokal perangkat pengembang untuk keperluan demonstrasi/presentasi. Aplikasi ini belum bisa memuat data secara mandiri apabila diinstal oleh pengguna di luar jaringan lokal (*Tethering*) yang kami gunakan.
