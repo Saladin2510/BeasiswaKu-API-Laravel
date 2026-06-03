@@ -3,7 +3,7 @@
 # BeasiswaKu
   
 <!-- Ganti "logo.png" di bawah ini dengan nama file gambar logo aslimu yang ada di folder -->
-<img src="logo.png" alt="Logo BeasiswaKu" width="450">
+<img src="logo-BeasiswaKu.png" alt="Logo BeasiswaKu" width="450">
 
 </div>
 
