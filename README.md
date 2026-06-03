@@ -1,5 +1,24 @@
+<div align="center">
+  
 # BeasiswaKu
+  
+<!-- Ganti "logo.png" di bawah ini dengan nama file gambar logo aslimu yang ada di folder -->
+<img src="logo.png" alt="Logo BeasiswaKu" width="450">
 
+</div>
+
+<br>
+
+**Kelompok** : 3  
+**Kelas**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: XI PPLG 5  
+**Anggota**&nbsp;&nbsp;&nbsp;:  
+1. Kamila Mahda Fiqiyah (14)
+2. Krisna Rizky Saputra (17)
+3. Mischa Riyumi Wirya (19)
+4. M. Erlano Fadel Hidayat (22)
+5. Saladin Octiano Bonanza (32)
+
+---
 **Platform informasi beasiswa terintegrasi untuk pelajar dan mahasiswa.**
 
 ## 📖 Deskripsi Aplikasi
