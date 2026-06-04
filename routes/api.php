@@ -85,3 +85,5 @@ Route::apiResource('testimonial', TestimonialController::class);
 Route::get('/wishlist/{uid}', [\App\Http\Controllers\Api\SavedScholarshipController::class, 'getUserWishlist']);
 
 Route::post('/wishlist/toggle', [\App\Http\Controllers\Api\SavedScholarshipController::class, 'toggle']);
+
+Route::get('/countdown', [BeasiswaController::class, 'countdown']);

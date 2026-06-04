@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Beasiswa;
 use Illuminate\Http\Request;
@@ -159,5 +159,25 @@ class BeasiswaController extends Controller
             'message' => 'Data beasiswa populer berhasil diambil',
             'data' => $beasiswa
         ], 200);
+    }
+    // ==========================================
+    // COUNTDOWN PENDAFTARAN
+    // ==========================================
+    public function countdown()
+    {
+        // Tanggal penutupan pendaftaran
+        $deadline = Carbon::parse('2026-06-30 23:59:59');
+
+        $now = Carbon::now();
+
+        // Hitung sisa hari
+        $daysRemaining = max(0, $now->diffInDays($deadline, false));
+
+        return response()->json([
+            'status' => 'success',
+            'registration_close' => $deadline->format('Y-m-d H:i:s'),
+            'days_remaining' => $daysRemaining,
+            'is_closed' => $now->greaterThan($deadline)
+        ]);
     }
 }
