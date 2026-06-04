@@ -31,6 +31,8 @@ class ArtikelController extends Controller
         ], 201);
     }
 
+// ini tes
+    
     // Mengambil 1 artikel spesifik (Untuk layar Edit)
     public function show($id)
     {
