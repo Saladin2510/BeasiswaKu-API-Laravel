@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
+use App\Models\NotificationHistory;
 
 class NotificationController extends Controller
 {
@@ -40,30 +41,42 @@ class NotificationController extends Controller
         ]);
 
         try {
-            // 1. Memanggil mesin pengirim dari library Kreait Firebase
+
             $messaging = app('firebase.messaging');
 
-            // 2. Membungkus judul dan isi pesan notifikasi
-            $notification = Notification::create($request->title, $request->body);
+            $notification = Notification::create(
+                $request->title,
+                $request->body
+            );
 
-            // 3. Menargetkan notifikasi ke semua HP yang subscribe topik "pengumuman"
-            $message = CloudMessage::withTarget('topic', 'pengumuman')
-                ->withNotification($notification);
+            $message = CloudMessage::withTarget(
+                'topic',
+                'pengumuman'
+            )
+                ->withNotification($notification)
+                ->withData([
+                    'type' => 'broadcast'
+                ]);
 
-            // 4. Menembakkan pesan ke server Google Firebase
             $messaging->send($message);
+
+            // Simpan ke database
+            NotificationHistory::create([
+                'title' => $request->title,
+                'body' => $request->body
+            ]);
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Notifikasi berhasil dikirim ke antrean!'
+                'message' => 'Notifikasi berhasil dikirim'
             ]);
 
         } catch (\Exception $e) {
-            // Jika terjadi error (misalnya kunci JSON salah), tampilkan pesan errornya
+
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengirim notifikasi: ' . $e->getMessage()
+                'message' => $e->getMessage()
             ], 500);
         }
     }
-}   
+}
